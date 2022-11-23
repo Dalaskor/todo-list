@@ -1,7 +1,17 @@
 @import url(./assets/styles/fonts.less);
 @import url(./assets/styles/resetcss.less);
 
-:root {
+/* :root {
+	font-family: 'Fira Code' monospace;
+	font-size: 1.6rem;
+	line-height: 2.1rem;
+	font-weight: 400;
+
+	color: #000000;
+	background-color: #F9F9F9;
+} */
+
+body {
 	font-family: 'Fira Code' monospace;
 	font-size: 1.6rem;
 	line-height: 2.1rem;

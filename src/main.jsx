@@ -1,26 +1,36 @@
-import React from 'react'
+import React, { createContext } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-// import firebase from "firebase";
-import { initializeApp } from "firebase/app";
+import firebase from "firebase/compat/app";
+// import { initializeApp } from "firebase/app";
 import 'firebase/firestore';
 import 'firebase/auth';
+import { getAuth } from 'firebase/auth';
+import {getFirestore} from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCuGIzwW8_esmrK7FzKkiTfJ0mNA2uPHiQ",
-  authDomain: "todo-list-78e4b.firebaseapp.com",
-  projectId: "todo-list-78e4b",
-  storageBucket: "todo-list-78e4b.appspot.com",
-  messagingSenderId: "1000760735350",
-  appId: "1:1000760735350:web:747f97d3e6972587005157",
-  measurementId: "G-H31Y9WRWPQ"
+  apiKey: "AIzaSyCgzYYYXtlBOQTInmn9_4hpOuHK9HjBUCo",
+  authDomain: "todo-list-65fc2.firebaseapp.com",
+  projectId: "todo-list-65fc2",
+  storageBucket: "todo-list-65fc2.appspot.com",
+  messagingSenderId: "397547153921",
+  appId: "1:397547153921:web:487c826ab6720c6fa26e00",
+  measurementId: "G-FXD6W92LWE"
 };
 
-const app = initializeApp(firebaseConfig);
+export const Context = createContext(null);
+
+firebase.initializeApp(firebaseConfig);
+const auth = getAuth();
+const firestore = getFirestore();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+	<Context.Provider value={{
+		firebase,
+		auth,
+		firestore
+	}}>
+		<App />
+	</Context.Provider>
 )
