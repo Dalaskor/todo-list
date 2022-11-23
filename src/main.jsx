@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import firebase from "firebase/compat/app";
-// import { initializeApp } from "firebase/app";
 import 'firebase/firestore';
 import 'firebase/auth';
 import { getAuth } from 'firebase/auth';

@@ -7,7 +7,6 @@ import { Context } from './main';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loader from './components/Loader/Loader';
 
-
 function App() {
 	const {auth} = useContext(Context);
 	const [user, loading, error] = useAuthState(auth);
@@ -18,10 +17,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <>
-        <Header />
-        <AppRouter />
-      </>
+		<Header />
+		<AppRouter />
     </BrowserRouter>
   );
 }
