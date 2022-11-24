@@ -52,7 +52,9 @@ const CreateTask = ({onCreate}) => {
 
 		console.log(taskObj);
 
-		await addDoc(collection(firestore, 'tasks'), taskObj);
+		const tasksRef = collection(firestore, 'tasks');
+
+		await addDoc(tasksRef, taskObj);
 
 		console.log('Uploaded a task');
 
