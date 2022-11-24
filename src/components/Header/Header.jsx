@@ -18,8 +18,8 @@ const Header = () => {
 				{user && <a onClick={() => auth.signOut()} className={style.header__link}>Выйти</a>}
 				<Modal
 					isVisible={isModal}
-					title="Modal Title"
-					content={<CreateTask/>}
+					title="Новая задача"
+					content={<CreateTask onCreate={() => setModal(false)}/>}
 					onClose={() => setModal(false)}
 				/>
 			</div>

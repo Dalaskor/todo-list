@@ -5,6 +5,7 @@ import './index.css'
 import firebase from "firebase/compat/app";
 import 'firebase/firestore';
 import 'firebase/auth';
+import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 import {getFirestore} from 'firebase/firestore';
 
@@ -20,9 +21,10 @@ const firebaseConfig = {
 
 export const Context = createContext(null);
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const firestore = getFirestore();
+const firestore = getFirestore(app);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<Context.Provider value={{

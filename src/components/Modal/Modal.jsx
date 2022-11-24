@@ -1,7 +1,7 @@
 import React from "react";
 import './Modal.less';
 
-const Modal = ({ isVisible = false, title, content, onClose, onSubmit}) => {
+const Modal = ({ isVisible = false, title, content, onClose}) => {
 	const keydownHandler = ({ key }) => {
     switch (key) {
       case 'Escape':
@@ -28,10 +28,6 @@ const Modal = ({ isVisible = false, title, content, onClose, onSubmit}) => {
         <div className="modal-body">
           <div className="modal-content">{content}</div>
         </div>
-		<div className="modal-footer">
-			<div onClick={onSubmit} className="btn-submit">Ок</div>
-			<div onClick={onClose} className="btn-cancel">Отмена</div>
-		</div>
       </div>
     </div>
   );
