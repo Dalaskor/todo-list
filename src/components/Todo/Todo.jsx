@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import style from './Todo.module.less';
-import { collection, query, where } from 'firebase/firestore';
+import { collection, query, where, orderBy } from 'firebase/firestore';
 import { Context } from '../../main';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -12,7 +12,8 @@ const Todo = () => {
 	const [user] = useAuthState(auth);
 
 	const tasksRef = collection(firestore, 'tasks');
-	const tasksQuery = query(tasksRef, where('uid', '==', `${user.uid}`));
+	const tasksQuery = query(tasksRef,
+		where('uid', '==', `${user.uid}`));
 	const [tasks, loading, error] = useCollection(tasksQuery);
 
 	return (

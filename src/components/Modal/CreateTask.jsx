@@ -4,7 +4,7 @@ import style from './CreateTask.module.less';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {Context} from '../../main';
 import { useAuthState } from "react-firebase-hooks/auth";
-import {collection, doc, addDoc} from 'firebase/firestore';
+import {collection, doc, addDoc, Timestamp} from 'firebase/firestore';
 import {getStorage, ref, uploadBytes} from 'firebase/storage';
 import * as dayjs from 'dayjs';
 
@@ -45,12 +45,10 @@ const CreateTask = ({onCreate}) => {
 			uid: user.uid,
 			title: title,
 			description: description,
-			date: date,
+			date: dayjs().format(date),
 			files: userFilePaths,
 			createdAt: dayjs().format(),
 		}
-
-		console.log(taskObj);
 
 		const tasksRef = collection(firestore, 'tasks');
 
