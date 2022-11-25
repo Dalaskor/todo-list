@@ -62,6 +62,10 @@ const Task = ({task, taskId}) => {
 		});
 	};
 
+	const clickDeleteHandle = async () => {
+		await deleteDoc(doc(firestore, 'tasks', `${taskId}`));
+	};
+
 	useEffect(() => {
 		if(dayjs().diff(dayjs(task.date)) > 0) {
 			failHandle();
@@ -135,7 +139,7 @@ const Task = ({task, taskId}) => {
 							</defs>
 						</svg>
 					</div>
-					<div className={style.task__btnDelete}>
+					<div onClick={clickDeleteHandle} className={style.task__btnDelete}>
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M14.5276 1.71558H10.763V0H5.65099V1.71558H1.88647V4.42438H14.5276V1.71558V1.71558ZM7.00539 1.3544H9.40864V1.71558H7.00539V1.3544Z" fill="white"/>
 							<path d="M13.3247 9.67539L13.5803 5.77878H2.83386L3.69237 18.8713H8.84686C8.17594 17.9202 7.78131 16.7609 7.78131 15.5111C7.78131 12.3896 10.2415 9.83201 13.3247 9.67539Z" fill="white"/>
