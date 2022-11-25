@@ -1,14 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from './Task.module.less';
 import { getStorage, ref } from 'firebase/storage';
 import { useDownloadURL } from 'react-firebase-hooks/storage';
 import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { Context } from '../../main';
 import dayjs from "dayjs";
+import EditTask from "../Modal/EditTask";
+import Modal from "../Modal/Modal";
 
 const Task = ({task, taskId}) => {
 	const storage = getStorage();
 	const {auth, firestore} = useContext(Context);
+	const [isModal, setModal] = useState(false);
 	const files = [];
 	const fetchedUrls = [];
 
@@ -122,7 +125,7 @@ const Task = ({task, taskId}) => {
 						)}
 				</div>
 				<div className={style.task__footer}>
-					<div className={style.task__btnEdit}>
+					<div onClick={() => setModal(true)} className={style.task__btnEdit}>
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<g>
 							<path d="M19.4183 2.59237V2.27802C19.4183 1.02062 18.3977 0 17.1403 0C15.8829 0 14.8622 1.02062 14.8622 2.27802V2.59237H19.4183Z" fill="white"/>
@@ -148,6 +151,13 @@ const Task = ({task, taskId}) => {
 					</div>
 				</div>
 			</div>
+
+			<Modal
+				isVisible={isModal}
+				title="Редактировать задачу"
+				content={<EditTask taskId={taskId} onCreate={() => setModal(false)}/>}
+				onClose={() => setModal(false)}
+			/>
 		</div>
 	);
 };
