@@ -23,7 +23,6 @@ const Todo = () => {
 				{loading && <Loader/>}
 				{tasks && (
 					<div className={style.todo__list}>
-						Collection:{' '}
 						{tasks.docs.map((task) => (
 							<React.Fragment key={task.id}>
 								<Task task={task.data()} taskId={task.id}/>
