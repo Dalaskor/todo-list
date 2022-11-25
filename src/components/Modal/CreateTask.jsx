@@ -15,6 +15,8 @@ import * as dayjs from 'dayjs';
 
 /**
  * Компонент модального окна для создания новых задач
+ *
+ * @component
  * @param {Function} onCreate - Событие при создании новой задачи
 * */
 const CreateTask = ({onCreate}) => {

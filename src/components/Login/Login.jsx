@@ -4,7 +4,10 @@ import style from './Login.module.less';
 import {Context} from '../../main';
 import {signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 
-/** Компонент авторизации */
+/**
+ * Компонент авторизации
+ * @component
+* */
 const Login = () => {
 	const {auth} = useContext(Context);
 

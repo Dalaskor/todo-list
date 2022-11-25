@@ -8,7 +8,10 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import Task from "../Task/Task";
 import Loader from "../Loader/Loader";
 
-/** Компонент списка задач */
+/**
+ * Компонент списка задач
+ * @component
+* */
 const Todo = () => {
 	const {auth, firestore} = useContext(Context);
 	const [user] = useAuthState(auth);

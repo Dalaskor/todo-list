@@ -7,6 +7,8 @@ import './Modal.less';
 
 /**
 * Компонент оболочки для мобольных окон
+*
+* @component
 * @param {boolean} isVisible - Видимость модального окна
 * @param {string} title - Заголовок модального окна
 * @param {React.Component} content - Компоннет для контентной части

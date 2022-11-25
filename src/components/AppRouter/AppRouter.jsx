@@ -6,6 +6,11 @@ import { LOGIN_ROUTE, TODO_ROUTE } from "../../utils/consts";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Context } from '../../main';
 
+/**
+* Компонент для маршрутизации
+* 
+* @component
+*/
 const AppRouter = () => {
 	/** Получение данных пользователя через контекст */
 	const {auth} = useContext(Context);

@@ -11,6 +11,8 @@ import Modal from "../Modal/Modal";
 
 /**
  * Компонент задачи
+ *
+ * @component
  * @param {object} task - Объект с данными задачи
  * @param {string} taskId - Идентификатор задачи в базе данных
 * */

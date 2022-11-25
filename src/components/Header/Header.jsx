@@ -6,7 +6,10 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Modal from "../Modal/Modal";
 import CreateTask from "../Modal/CreateTask";
 
-/** Компонент шапки приложения */
+/**
+ * Компонент шапки приложения
+ * @ component
+*/
 const Header = () => {
 	/** Получение данных пользователя из контекста */
 	const {auth} = useContext(Context);

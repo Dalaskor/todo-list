@@ -13,6 +13,8 @@ import * as dayjs from 'dayjs';
 
 /**
  * Компонент модального окна для редактирования задач
+ *
+ * @component
  * @param {string} taskId - Идентификатор задачи в базе данных
  * @param {Function} onCreate - Событие при успешном редактировании задачи
 * */
