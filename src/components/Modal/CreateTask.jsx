@@ -1,3 +1,8 @@
+/**
+ * @module CreateTask
+ * Контентная часть для модального окна.
+ * Создание новых задач.
+* */
 import React, { useContext, useState } from "react";
 import Loader from "../Loader/Loader";
 import style from './CreateTask.module.less';
@@ -8,6 +13,10 @@ import {collection, doc, addDoc, Timestamp} from 'firebase/firestore';
 import {getStorage, ref, uploadBytes} from 'firebase/storage';
 import * as dayjs from 'dayjs';
 
+/**
+ * Компонент модального окна для создания новых задач
+ * @param {Function} onCreate - Событие при создании новой задачи
+* */
 const CreateTask = ({onCreate}) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -20,6 +29,7 @@ const CreateTask = ({onCreate}) => {
 		collection(firestore, 'tasks')
 	);
 
+	/** Обработчик подтверждения формы */
 	const submitHandler = async (event) => {
 		event.preventDefault();
 
@@ -47,6 +57,7 @@ const CreateTask = ({onCreate}) => {
 			isFailed = true;
 		}
 
+		/** Объект новой задачи */
 		const taskObj = {
 			uid: user.uid,
 			title: title,
@@ -72,18 +83,22 @@ const CreateTask = ({onCreate}) => {
 		onCreate();
 	};
 
+	/** Обработчик изменения заголовка задачи */
 	const titleChangeHandler = (event) => {
 		setTitle(event.target.value);
 	};
 
+	/** Обработчик изменения описания задачи */
 	const descriptionChangeHandler = (event) => {
 		setDescription(event.target.value)
 	};
 
+	/** Обработчик изменения даты окончания задачи */
 	const dateChangeHandler = (event) => {
 		setDate(event.target.value);
 	};
 
+	/** Обработчик добавления файлов задачи */
 	const filesChangeHandler = (event) => {
 		const filesFromInput = Array.from(event.target.files);
 		setFiles(filesFromInput);

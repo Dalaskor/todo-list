@@ -1,6 +1,8 @@
+/** @module Loader */
 import React from 'react';
 import style from './Loader.module.less';
 
+/** Компонент загрузчика */
 const Loader = () => {
 	return (
 		<section className={style.loader}>

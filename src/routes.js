@@ -1,3 +1,7 @@
+/**
+ * @module routes
+ * Модуль с константами содержащие маршруты для роутера
+* */
 import Login from "./components/Login/Login";
 import Todo from "./components/Todo/Todo";
 import { LOGIN_ROUTE, TODO_ROUTE } from "./utils/consts";

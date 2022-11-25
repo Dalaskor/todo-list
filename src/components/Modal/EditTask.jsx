@@ -1,3 +1,6 @@
+/** 
+ * @module EditTask
+* */
 import React, { useContext, useState } from "react";
 import style from './CreateTask.module.less';
 import Loader from "../Loader/Loader";
@@ -8,6 +11,11 @@ import {collection, doc, addDoc, setDoc, Timestamp} from 'firebase/firestore';
 import {getStorage, ref, uploadBytes} from 'firebase/storage';
 import * as dayjs from 'dayjs';
 
+/**
+ * Компонент модального окна для редактирования задач
+ * @param {string} taskId - Идентификатор задачи в базе данных
+ * @param {Function} onCreate - Событие при успешном редактировании задачи
+* */
 const EditTask = ({taskId, onCreate}) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -20,6 +28,9 @@ const EditTask = ({taskId, onCreate}) => {
 		collection(firestore, 'tasks')
 	);
 
+	/**
+	 * Событие выполнения формы
+	* */
 	const submitHandler = async (event) => {
 		event.preventDefault();
 
@@ -70,18 +81,22 @@ const EditTask = ({taskId, onCreate}) => {
 		onCreate();
 	};
 
+	/** Обработчик события ввода заголовка задачи */
 	const titleChangeHandler = (event) => {
 		setTitle(event.target.value);
 	};
 
+	/** Обработчик события ввода описания задачи */
 	const descriptionChangeHandler = (event) => {
 		setDescription(event.target.value)
 	};
 
+	/** Обработчик события ввода даты окончания задачи */
 	const dateChangeHandler = (event) => {
 		setDate(event.target.value);
 	};
 
+	/** Обработчик события добавления файлов задачи */
 	const filesChangeHandler = (event) => {
 		const filesFromInput = Array.from(event.target.files);
 		setFiles(filesFromInput);

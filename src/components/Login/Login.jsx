@@ -1,12 +1,14 @@
+/** @module Login */
 import React, { useContext } from "react";
 import style from './Login.module.less';
 import {Context} from '../../main';
-// import firebase from "firebase/compat/app";
 import {signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 
+/** Компонент авторизации */
 const Login = () => {
 	const {auth} = useContext(Context);
 
+	/** Авторизация пользователя через Google Аккаунт */
 	const login = async () => {
 		const provider = new GoogleAuthProvider();
 		const {user} = await signInWithPopup(auth, provider);

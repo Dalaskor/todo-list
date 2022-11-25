@@ -1,3 +1,4 @@
+/** @module Todo */
 import React, { useContext } from "react";
 import style from './Todo.module.less';
 import { collection, query, where, orderBy } from 'firebase/firestore';
@@ -7,6 +8,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import Task from "../Task/Task";
 import Loader from "../Loader/Loader";
 
+/** Компонент списка задач */
 const Todo = () => {
 	const {auth, firestore} = useContext(Context);
 	const [user] = useAuthState(auth);

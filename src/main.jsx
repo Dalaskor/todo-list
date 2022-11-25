@@ -1,3 +1,4 @@
+/** @module main */
 import React, { createContext } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
@@ -19,11 +20,14 @@ const firebaseConfig = {
   measurementId: "G-FXD6W92LWE"
 };
 
+/** Контекст для передачи базды данных по всему приложению */
 export const Context = createContext(null);
 
-// firebase.initializeApp(firebaseConfig);
+/** Инициализцаия приложения для Firebase */
 const app = initializeApp(firebaseConfig);
+/** Инициализация авторизации */
 const auth = getAuth();
+/** Инициализация хранилища */
 const firestore = getFirestore(app);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

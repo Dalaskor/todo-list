@@ -1,3 +1,4 @@
+/** @module Header */
 import React, { useContext, useState } from "react";
 import style from './Header.module.less';
 import { Context } from '../../main';
@@ -5,9 +6,12 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Modal from "../Modal/Modal";
 import CreateTask from "../Modal/CreateTask";
 
+/** Компонент шапки приложения */
 const Header = () => {
+	/** Получение данных пользователя из контекста */
 	const {auth} = useContext(Context);
 	const [user] = useAuthState(auth);
+	/** Состояние модального окна создания новыйх задач */
 	const [isModal, setModal] = useState(false);
 
 	return (

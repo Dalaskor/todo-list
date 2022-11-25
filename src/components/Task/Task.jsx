@@ -1,3 +1,4 @@
+/** @module Task */
 import React, { useContext, useEffect, useState } from "react";
 import style from './Task.module.less';
 import { getStorage, ref } from 'firebase/storage';
@@ -8,6 +9,11 @@ import dayjs from "dayjs";
 import EditTask from "../Modal/EditTask";
 import Modal from "../Modal/Modal";
 
+/**
+ * Компонент задачи
+ * @param {object} task - Объект с данными задачи
+ * @param {string} taskId - Идентификатор задачи в базе данных
+* */
 const Task = ({task, taskId}) => {
 	const storage = getStorage();
 	const {auth, firestore} = useContext(Context);
@@ -26,6 +32,9 @@ const Task = ({task, taskId}) => {
 		}
 	})
 
+	/**
+	 * Обработчик проверки сроков выполнения задачи
+	* */
 	const failHandle = async () => {
 		await setDoc(doc(firestore, 'tasks', `${taskId}`), {
 			uid: task.uid,
@@ -39,6 +48,9 @@ const Task = ({task, taskId}) => {
 		});
 	};
 
+	/**
+	 * Обработчик выполнения задачи
+	* */
 	const clickDoneHandle = async () => {
 		await setDoc(doc(firestore, 'tasks', `${taskId}`), {
 			uid: task.uid,
@@ -52,6 +64,9 @@ const Task = ({task, taskId}) => {
 		});
 	};
 
+	/**
+	 * Обработчик отмены выполнения задачи
+	* */
 	const clickNoDoneHandle = async () => {
 		await setDoc(doc(firestore, 'tasks', `${taskId}`), {
 			uid: task.uid,
@@ -65,6 +80,9 @@ const Task = ({task, taskId}) => {
 		});
 	};
 
+	/**
+	 * Обработчик удаления задачи
+	* */
 	const clickDeleteHandle = async () => {
 		await deleteDoc(doc(firestore, 'tasks', `${taskId}`));
 	};
