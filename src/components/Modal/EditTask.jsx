@@ -9,7 +9,7 @@ import {Context} from '../../main';
 import { useAuthState } from "react-firebase-hooks/auth";
 import {collection, doc, addDoc, setDoc, Timestamp} from 'firebase/firestore';
 import {getStorage, ref, uploadBytes} from 'firebase/storage';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 /**
  * Компонент модального окна для редактирования задач
