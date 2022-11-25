@@ -1,35 +1,94 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import style from './Task.module.less';
 import { getStorage, ref } from 'firebase/storage';
 import { useDownloadURL } from 'react-firebase-hooks/storage';
+import { doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { Context } from '../../main';
+import dayjs from "dayjs";
 
 const Task = ({task, taskId}) => {
 	const storage = getStorage();
+	const {auth, firestore} = useContext(Context);
 	const files = [];
 	const fetchedUrls = [];
-
-	console.log(task.files);
 
 	task.files.map((file) => {
 		const reference = ref(storage, `${file}`);
 		const [downloadUrl, loading, error] = useDownloadURL(reference);
 		if(!loading) {
-			console.log('URL -> ', downloadUrl);
 			fetchedUrls.push(downloadUrl);
 			files.push(`${file}`.substring(`${file}`.indexOf('/') + 1));
-			console.log(file);
 		} else {
 			return <></>
 		}
 	})
 
-	console.log('FILES => ', files);
+	const failHandle = async () => {
+		await setDoc(doc(firestore, 'tasks', `${taskId}`), {
+			uid: task.uid,
+			title: task.title,
+			description: task.description,
+			date: task.date,
+			files: task.files,
+			createdAt: task.createdAt,
+			isChecked: task.isChecked,
+			isFailed: true,
+		});
+	};
+
+	const clickDoneHandle = async () => {
+		await setDoc(doc(firestore, 'tasks', `${taskId}`), {
+			uid: task.uid,
+			title: task.title,
+			description: task.description,
+			date: task.date,
+			files: task.files,
+			createdAt: task.createdAt,
+			isChecked: true,
+			isFailed: task.isFailed,
+		});
+	};
+
+	const clickNoDoneHandle = async () => {
+		await setDoc(doc(firestore, 'tasks', `${taskId}`), {
+			uid: task.uid,
+			title: task.title,
+			description: task.description,
+			date: task.date,
+			files: task.files,
+			createdAt: task.createdAt,
+			isChecked: false,
+			isFailed: task.isFailed,
+		});
+	};
+
+	useEffect(() => {
+		if(dayjs().diff(dayjs(task.date)) > 0) {
+			failHandle();
+		}
+	});
 
 	return (
 		<div className={style.task}>
 			<div className={style.task__content}>
 				<div className={style.task__header}>
-					<div className={style.task__checker}></div>
+					{(!task.isFailed && !task.isChecked) && (
+						<div onClick={clickDoneHandle} className={style.task__checker}></div>
+						)}
+					{(task.isFailed && !task.isChecked) && (
+						<div className={style.task__checkerFailed}>
+<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.15408 0.519199L12.5 9.86478L21.8075 0.557658C22.1371 0.20691 22.5953 0.00557658 23.0767 0C24.1387 0 24.9997 0.860909 24.9997 1.92296C25.0087 2.39947 24.8208 2.85867 24.4805 3.19211L15.0769 12.4992L24.4805 21.9025C24.7974 22.2125 24.9833 22.6325 24.9997 23.0755C24.9997 24.1376 24.1387 24.9985 23.0767 24.9985C22.5811 25.0191 22.0998 24.8306 21.7498 24.4793L12.5 15.1337L3.17331 24.46C2.84505 24.7991 2.39506 24.9929 1.92334 24.9985C0.861252 24.9985 0.00031167 24.1376 0.00031167 23.0755C-0.00872657 22.599 0.179153 22.1398 0.519529 21.8064L9.92314 12.4992L0.519529 3.09596C0.202614 2.78598 0.0166574 2.36601 0.00031167 1.92296C0.00031167 0.860909 0.861252 0 1.92334 0C2.38564 0.00557658 2.82736 0.191911 3.15408 0.519199Z" fill="white"/>
+</svg>
+						</div>
+						)}
+					{(!task.isFailed && task.isChecked) && (
+						<div onClick={clickNoDoneHandle} className={style.task__checkerDone}>
+<svg width="31" height="25" viewBox="0 0 31 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M30.092 6.38305L13.7382 23.1032C12.5271 24.3417 10.5627 24.3417 9.35051 23.1032L0.90857 14.4709C-0.302908 13.2324 -0.302908 11.2236 0.90857 9.98489C2.12028 8.74596 4.08459 8.74596 5.29576 9.98442L11.545 16.3742L25.7041 1.89681C26.9158 0.65787 28.8803 0.658809 30.0915 1.89681C31.3028 3.13551 31.3028 5.14365 30.092 6.38305Z" fill="white"/>
+</svg>
+						</div>
+					)}
 					<div className={style.task__title}>{task.title}</div>
 					<div className={style.task__enddate}>{task.date}</div>
 					<div className={style.task__dropdown}>

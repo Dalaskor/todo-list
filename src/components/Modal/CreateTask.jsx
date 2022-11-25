@@ -41,13 +41,21 @@ const CreateTask = ({onCreate}) => {
 			}
 		}
 
+		let isFailed = false;
+
+		if (dayjs(date).diff(dayjs()) < 0) {
+			isFailed = true;
+		}
+
 		const taskObj = {
 			uid: user.uid,
 			title: title,
 			description: description,
-			date: dayjs().format(date),
+			date: date ? dayjs().format(date) : '',
 			files: userFilePaths,
 			createdAt: dayjs().format(),
+			isChecked: false,
+			isFailed: isFailed,
 		}
 
 		const tasksRef = collection(firestore, 'tasks');
